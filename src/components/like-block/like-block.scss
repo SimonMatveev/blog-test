@@ -1,0 +1,50 @@
+@import '../../utils/variables.scss';
+
+.like-block {
+  display: flex;
+  min-width: 149px;
+  justify-content: space-between;
+  &__wrapper {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+
+  &__btn {
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    border: none;
+    transition: all 0.3s;
+
+    &_like {
+      background-image: url('../../images/like.svg');
+
+      &-active {
+        background-image: url('../../images/like-filled.svg');
+      }
+    }
+
+    &_dislike {
+      background-image: url('../../images/dislike.svg');
+
+      &-active {
+        background-image: url('../../images/dislike-filled.svg');
+      }
+    }
+  }
+
+  &__text {
+    margin: 0;
+    color: $grey-like;
+    font-family: $font-stack;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.13;
+    letter-spacing: 0%;
+  }
+}

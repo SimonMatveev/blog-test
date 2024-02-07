@@ -1,0 +1,67 @@
+@import '../../utils/variables.scss';
+.search {
+  position: relative;
+
+  &__input {
+    padding: 12px 58px 12px 46px;
+    background-image: url('../../images/search-icon.svg');
+    background-repeat: no-repeat;
+    background-position: 14px center;
+    border: 1px solid $grey-light;
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 6px;
+    font-size: 16px;
+    line-height: 1.5;
+
+    &:focus + .search__label {
+      top: 0;
+    }
+
+    &:focus {
+      outline: 1px solid $grey-dark;
+    }
+  }
+
+  &__label {
+    position: absolute;
+    left: 43px;
+    top: 50%;
+    color: $grey-dark;
+    transform: translateY(-50%);
+    background-color: white;
+    transition: top 0.3s;
+    padding: 0 3px;
+    font-size: 16px;
+    line-height: 1.5;
+
+    &_active {
+      top: 0;
+    }
+  }
+
+  &__clean {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 14px;
+    width: 32px;
+    height: 32px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    background-image: url('../../images/close.svg');
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    transition: opacity 0.3s;
+
+    &:hover {
+      opacity: 0.7;
+    }
+
+    &:active {
+      opacity: 0.6;
+    }
+  }
+}

@@ -1,0 +1,48 @@
+import { ChangeEvent, FC, FormEvent, useState } from 'react';
+import useActions from '../../hooks/useActions';
+import './search.scss';
+
+const Search: FC = () => {
+  const [string, setString] = useState('');
+  const { setSearch, resetSearch } = useActions();
+
+  const handleChange = (e: ChangeEvent) =>
+    setString((e.target as HTMLInputElement).value);
+
+  const handleReset = () => {
+    resetSearch();
+    setString('');
+  };
+
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    setSearch(string);
+  };
+
+  return (
+    <form className='search' onSubmit={handleSubmit}>
+      <input
+        className='search__input'
+        value={string}
+        onChange={handleChange}
+        id='search'
+      />
+      <label
+        className={`search__label${string !== '' ? ' search__label_active' : ''}`}
+        htmlFor='search'
+      >
+        Поиск по названию статьи
+      </label>
+      {string !== '' && (
+        <button
+          className='search__clean'
+          aria-label='Очистить поиск'
+          type='button'
+          onClick={handleReset}
+        />
+      )}
+    </form>
+  );
+};
+
+export default Search;

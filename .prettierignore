@@ -1,0 +1,11 @@
+**/node_modules
+**/.DS_Store
+**/build
+**/dist
+**/public
+
+.local
+commitlint.config.cjs
+cz.config.cjs
+tsconfig.json
+.eslintrc
