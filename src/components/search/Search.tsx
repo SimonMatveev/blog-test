@@ -1,9 +1,11 @@
 import { ChangeEvent, FC, FormEvent, useState } from 'react';
 import useActions from '../../hooks/useActions';
+import { useTypedSelector } from '../../hooks/useTypedSelector';
 import './search.scss';
 
 const Search: FC = () => {
-  const [string, setString] = useState('');
+  const { value: searchValue } = useTypedSelector((state) => state.search);
+  const [string, setString] = useState(searchValue);
   const { setSearch, resetSearch } = useActions();
 
   const handleChange = (e: ChangeEvent) =>
