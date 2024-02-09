@@ -1,6 +1,5 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { ILikeState, TLikeSet } from '../types/types';
-import { getRandomN } from '../utils/functions';
+import { EReactions, ILikeState, TLikeSet } from '../types/types';
 
 const initialState: ILikeState = {};
 
@@ -9,33 +8,30 @@ export const likesSlice = createSlice({
   initialState,
   reducers: {
     setInitial: (state, { payload }: PayloadAction<TLikeSet>) => {
-      const { id } = payload;
+      const { id, likes, dislikes } = payload;
       state[id] = {
-        likes: getRandomN(50),
-        dislikes: getRandomN(50),
-        liked: 0,
+        values: {
+          [EReactions.LIKES]: likes,
+          [EReactions.DISLIKES]: dislikes,
+        },
+        currentState: EReactions.NONE,
       };
     },
-    like: (state, { payload }: PayloadAction<number>) => {
-      if (!state[payload]) return;
-      if (state[payload].liked === 1) {
-        state[payload].likes--;
-        state[payload].liked = 0;
+    setReaction: (
+      state,
+      { payload }: PayloadAction<{ id: number; type: EReactions }>
+    ) => {
+      const { id, type } = payload;
+      if (!state[id]) return;
+
+      if (state[id].currentState === type) {
+        state[id].values[type]!--;
+        state[id].currentState = EReactions.NONE;
       } else {
-        state[payload].likes++;
-        if (state[payload].liked === -1) state[payload].dislikes--;
-        state[payload].liked = 1;
-      }
-    },
-    dislike: (state, { payload }: PayloadAction<number>) => {
-      if (!state[payload]) return;
-      if (state[payload].liked === -1) {
-        state[payload].dislikes--;
-        state[payload].liked = 0;
-      } else {
-        state[payload].dislikes++;
-        if (state[payload].liked === 1) state[payload].likes--;
-        state[payload].liked = -1;
+        state[id].values[type]!++;
+        if (state[id].currentState !== EReactions.NONE)
+          state[id].values[state[id].currentState]!--;
+        state[id].currentState = type;
       }
     },
   },

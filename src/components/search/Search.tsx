@@ -1,29 +1,32 @@
 import { ChangeEvent, FC, FormEvent, useState } from 'react';
-import useActions from '../../hooks/useActions';
+import { useDispatch } from 'react-redux';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
+import { searchActions } from '../../store/search.slice';
 import './search.scss';
 
 const Search: FC = () => {
   const { value: searchValue } = useTypedSelector((state) => state.search);
   const [string, setString] = useState(searchValue);
-  const { setSearch, resetSearch } = useActions();
+  const dispatch = useDispatch();
+  const { setSearch, resetSearch } = searchActions;
 
   const handleChange = (e: ChangeEvent) =>
     setString((e.target as HTMLInputElement).value);
 
   const handleReset = () => {
-    resetSearch();
+    dispatch(resetSearch());
     setString('');
   };
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    setSearch(string);
+    dispatch(setSearch(string));
   };
 
   return (
     <form className='search' onSubmit={handleSubmit}>
       <input
+        onSubmit={handleSubmit}
         className='search__input'
         value={string}
         onChange={handleChange}

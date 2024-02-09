@@ -1,6 +1,6 @@
 import { Navigate, Route, Routes } from 'react-router';
 import Main from '../main/Main';
-import NotFound from '../notFound/NotFound';
+import NotFound from '../not-found/NotFound';
 import PostPage from '../post-page/PostPage';
 import './app.scss';
 

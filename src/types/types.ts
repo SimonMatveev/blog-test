@@ -5,14 +5,23 @@ export interface IPost {
   body: string;
 }
 
+export enum EReactions {
+  LIKES = 'likes',
+  DISLIKES = 'dislikes',
+  NONE = 'none',
+}
+
 export type TLike = {
-  likes: number;
-  dislikes: number;
-  liked: 0 | 1 | -1;
+  values: {
+    [key in EReactions]?: number;
+  };
+  currentState: EReactions;
 };
 
 export type TLikeSet = {
   id: number;
+  likes: number;
+  dislikes: number;
 };
 
 export interface IPostWithLikes extends IPost {
@@ -26,4 +35,9 @@ export interface ILikeState {
 export interface IGetPostsArg {
   state: ILikeState;
   title: string;
+}
+
+export interface IGetPostArg {
+  state: ILikeState;
+  id: string;
 }

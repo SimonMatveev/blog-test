@@ -1,24 +1,20 @@
-import { FC, useEffect } from 'react';
+import { FC } from 'react';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
-import useActions from '../../hooks/useActions';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { useGetPostQuery } from '../../store/api/storeApi';
 import { URL_IMG } from '../../utils/config';
-import Preloader from '../Preloader/Preloader';
 import LikeBlock from '../like-block/LikeBlock';
+import Preloader from '../preloader/Preloader';
 import './post-page.scss';
 
 const PostPage: FC = () => {
   const { id } = useParams();
-  const { data: post, isLoading } = useGetPostQuery(id!);
   const likeState = useTypedSelector((state) => state.likes);
-  const { setInitial } = useActions();
-  useEffect(() => {
-    if (post && !likeState[post.id]) {
-      setInitial({ id: post.id });
-    }
-  }, [post]);
+  const { data: post, isLoading } = useGetPostQuery({
+    id: id!,
+    state: likeState,
+  });
   return (
     <section className='post-page'>
       {!isLoading ? (
