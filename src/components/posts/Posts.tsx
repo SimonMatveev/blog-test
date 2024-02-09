@@ -1,9 +1,9 @@
 import { FC } from 'react';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { useGetPostsQuery } from '../../store/api/storeApi';
-import Preloader from '../Preloader/Preloader';
 import PostCardBig from '../post-card-big/PostCardBig';
 import PostCard from '../post-card/PostCard';
+import Preloader from '../preloader/Preloader';
 import './posts.scss';
 
 const Posts: FC = () => {
@@ -18,6 +18,7 @@ const Posts: FC = () => {
     data.map((item) => {
       return { ...item, likes: { ...likeState[item.id] } };
     });
+
   return (
     <div className='posts'>
       {!isLoading ? (
@@ -26,9 +27,20 @@ const Posts: FC = () => {
             <>
               <PostCardBig classes='posts__first-post' post={dataToRender![0]} />
               <div className='posts__wrapper'>
-                {dataToRender!.splice(1).map((item) => (
-                  <PostCard key={item.id} post={item} />
-                ))}
+                <div className='posts__col'>
+                  {dataToRender!
+                    .slice(1, Math.floor(dataToRender.length / 2))
+                    .map((item) => (
+                      <PostCard key={item.id} post={item} />
+                    ))}
+                </div>
+                <div className='posts__col'>
+                  {dataToRender!
+                    .slice(Math.floor(dataToRender.length / 2) + 1)
+                    .map((item) => (
+                      <PostCard key={item.id} post={item} />
+                    ))}
+                </div>
               </div>
             </>
           ) : (

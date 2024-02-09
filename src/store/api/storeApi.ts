@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { IGetPostsArg, IPost } from '../../types/types';
+import { IGetPostArg, IGetPostsArg, IPost } from '../../types/types';
 import { URL_BASE_API } from '../../utils/config';
-import { likesActions } from '../likes.slice';
+import { setLikeState } from '../../utils/functions';
 
 export const storeApi = createApi({
   reducerPath: 'storeApi',
@@ -20,19 +20,24 @@ export const storeApi = createApi({
         { dispatch, getCacheEntry, cacheDataLoaded }
       ) {
         await cacheDataLoaded;
-        const { setInitial } = likesActions;
         const data = getCacheEntry().data;
         if (data) {
           data.forEach((post) => {
-            if (!likeState[post.id]) {
-              dispatch(setInitial({ id: post.id }));
-            }
+            setLikeState(post, likeState, dispatch);
           });
         }
       },
     }),
-    getPost: builder.query<IPost, string>({
-      query: (postId) => `/posts/${postId}`,
+    getPost: builder.query<IPost, IGetPostArg>({
+      query: ({ id }) => `/posts/${id}`,
+      async onCacheEntryAdded(
+        { state: likeState },
+        { dispatch, getCacheEntry, cacheDataLoaded }
+      ) {
+        await cacheDataLoaded;
+        const data = getCacheEntry().data;
+        setLikeState(data, likeState, dispatch);
+      },
     }),
   }),
 });

@@ -19,6 +19,12 @@
     }
   }
 
+  &__col {
+    display: flex;
+    flex-direction: column;
+    row-gap: 24px;
+  }
+
   &__message {
     flex-grow: 1;
     margin: 0;
