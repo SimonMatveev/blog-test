@@ -3,7 +3,7 @@ import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { useGetPostsQuery } from '../../store/api/storeApi';
 import PostCardBig from '../post-card-big/PostCardBig';
 import PostCard from '../post-card/PostCard';
-import Preloader from '../preloader/Preloader';
+import Preloader from '../preloaderr/Preloader';
 import './posts.scss';
 
 const Posts: FC = () => {
