@@ -5,7 +5,7 @@ import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { useGetPostQuery } from '../../store/api/storeApi';
 import { URL_IMG } from '../../utils/config';
 import LikeBlock from '../like-block/LikeBlock';
-import Preloader from '../preloaderr/Preloader';
+import Preloader from '../preloader/Preloader';
 import './post-page.scss';
 
 const PostPage: FC = () => {
