@@ -8,6 +8,8 @@
 
 ## Запуск
 
+### Вручную
+
 ```
 npm ci
 ```
@@ -22,4 +24,11 @@ npm run dev
 
 ```
 npm run build
+```
+
+### Запуск прод версии с помощью Docker
+
+```
+docker build -t blog-test .
+docker run -p 3000:3000 blog-test
 ```
