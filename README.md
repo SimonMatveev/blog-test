@@ -26,9 +26,10 @@ npm run dev
 npm run build
 ```
 
-### Запуск прод версии с помощью Docker
+### Запуск сервера, раздающего статику с помощью Docker
+
+Сервер доступен по адресу http://localhost:3000
 
 ```
-docker build -t blog-test .
-docker run -p 3000:3000 blog-test
+docker-compose up --build
 ```
